@@ -2,12 +2,13 @@
 
 ## About this fork
 
-For multiple projects I am working on, I need to handle some commands that are not currently integrated in version 0.8.1.
-I will at one point propose a pull request, this is not a fork because of a divergence but I need these functionalities and do not have the habit of online collaboration (does it take time, are they still alive, what if they say no ...).
-Thanks to the original team for their work ;-)
-Scal
+  For multiple projects I am working on, I need to handle some commands that are not currently integrated in version 0.8.1.
+  I will at one point propose a pull request, this is not a fork because of a divergence but I need these functionalities and do not have the habit of online collaboration (does it take time, are they still alive ...).
+
+  Thanks to the original team for their work ;-)
 
 
+## SHiPS
 
 A [PowerShell provider][ps-provider] allows any data store to be exposed like a file system as if it were a mounted drive.
 In other words, the data in your data store can be treated like files and directories so that a user can navigate data via `cd` or `dir`.
