@@ -10,6 +10,11 @@ Class NewItemParameters {
     [String] $NewData
 }
 
+Class RemoveItemParameters {
+    [Parameter()]
+    [String] $RemoveData
+}
+
 [SHiPSProvider(UseCache = $True)]
 class Folder : SHiPSDirectory
 {
@@ -33,14 +38,28 @@ class Folder : SHiPSDirectory
     #Region New-Item
     [Object] NewItem([String] $Path, [String] $itemTypeName) {
         Write-Verbose ('{0} {1} {2} {3} {4}' -f $This.GetType().Name, $This.PSPath, 'NewItem', $Path, ($This.ProviderContext | ConvertTo-Json -Compress))
-        If ($itemTypeName -Eq 'Folder') {
-            $newItem = [Folder]::New((Split-Path -Leaf $Path))
-        } Else {
-            $newItem = [File]::New((Split-Path -Leaf $Path), $itemTypeName)
+        $newItem = $Null
+        Switch ($itemTypeName) {
+            'Directory' {
+                $newItem = [SHiPSDirectory]::New((Split-Path -Leaf $Path))
+                Break
+            }
+            'Folder' {
+                $newItem = [Folder]::New((Split-Path -Leaf $Path))
+                $newItem.ItemType = $itemTypeName
+                $newItem.Data = $This.ProviderContext.DynamicParameters.NewData
+                Break
+            }
+            Default {
+                $newItem = [File]::New((Split-Path -Leaf $Path), $itemTypeName)
+                $newItem.ItemType = $itemTypeName
+                $newItem.Data = $This.ProviderContext.DynamicParameters.NewData
+                Break
+            }
         }
-        $newItem.ItemType = $itemTypeName
-        $newItem.Data = $This.ProviderContext.DynamicParameters.NewData
-        $This.ChildItems += $newItem
+        If ($Null -Ne  $newItem) {
+            $This.ChildItems += $newItem
+        }
         Return $newItem
     }
 
@@ -54,6 +73,25 @@ class Folder : SHiPSDirectory
         Return ([NewItemParameters]::New())
     }
     #EndRegion
+    #Region Remove-Item
+    [Void] RemoveItem([String] $Path) {
+        Write-Verbose ('{0} {1} {2} {3} {4}' -f $This.GetType().Name, $This.Name, 'RemoveItem', (Split-Path -Leaf $Path), ($This.ProviderContext | ConvertTo-Json -Compress))
+        # $This.ChildItems | Format-Table | Out-String | Write-Warning
+        $This.ChildItems = $This.ChildItems | Where-Object Name -Ne (Split-Path -Leaf $Path)
+        # $This.ChildItems | Format-Table | Out-String | Write-Warning
+    }
+
+    [Object] RemoveItemDynamicParameters() {
+        Write-Verbose ('{0} {1} {2}' -f $This.GetType().Name, $This.Name, 'RemoveItemDynamicParameters')
+        Return ([RemoveItemParameters]::New())
+    }
+    #EndRegion
+}
+
+[SHiPSProvider(UseCache = $True)]
+class Root : Folder
+{
+    Root([string]$name): base($name){}
 }
 
 [SHiPSProvider(UseCache = $True)]

@@ -22,8 +22,10 @@ namespace Microsoft.PowerShell.SHiPS
         internal static readonly string GetContent = "GetContent";
         internal static readonly string SetContent = "SetContent";
         internal static readonly string NewItem = "NewItem";
-        internal static readonly string NewItemTypeNames = "NewItemTypeNames";
+        internal static readonly string NewItemTypeNames = "NewItemTypeNames";      
         internal static readonly string NewItemDynamicParameters = "NewItemDynamicParameters";
+        internal static readonly string RemoveItem = "RemoveItem";
+        internal static readonly string RemoveItemDynamicParameters = "RemoveItemDynamicParameters";  
         internal static readonly string ScriptBlockWithParam1  = "[CmdletBinding()] param([object]$object) $object.{0}()";
         internal static readonly string ScriptBlockWithParam2 = "[CmdletBinding()] param([object]$object, [string]$p0) $object.{0}($p0)";
         internal static readonly string ScriptBlockWithParam3 = "[CmdletBinding()] param([object]$object, [string]$p0, [string]$p1) $object.{0}($p0, $p1)";
@@ -40,12 +42,13 @@ namespace Microsoft.PowerShell.SHiPS
             "Test-Path",
             "Get-Content",
             "Set-Content",
+            // Added after 0.8.1
+            "New-Item",
+            "Remove-Item",
              // Below are NotSupported commands, but we do handle their error messages.
             "Clear-Content",
             "Move-Item",
             "Copy-Item",
-            "New-Item",
-            "Remove-Item",
             "Rename-Item",
             "Clear-Item",
             "Set-Item",

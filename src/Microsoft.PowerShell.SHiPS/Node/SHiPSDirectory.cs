@@ -72,5 +72,17 @@ namespace Microsoft.PowerShell.SHiPS
             return null;
         }   
         #endregion
+
+        #region RemoveItem
+        public virtual void RemoveItem(string path, bool recurse)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual object RemoveItemDynamicParameters()
+        {
+            return null;
+        }   
+        #endregion
     }
 }

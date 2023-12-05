@@ -14,7 +14,8 @@ namespace Microsoft.PowerShell.SHiPS
     internal class LeafNodeService : PathNodeBase,
         IGetItemContent,
         ISetItemContent,
-        IClearItemContent
+        IClearItemContent,
+        IRemoveItem
     {
         private readonly SHiPSLeaf _shipsLeaf;
         private static readonly string _leaf = ".";
@@ -44,6 +45,18 @@ namespace Microsoft.PowerShell.SHiPS
             get { return _shipsLeaf.Name; }
         }
 
+        private  object GetDynamicParameters(string functionName)
+        {
+            var item = this._shipsLeaf;
+            if (item == null)
+            {
+                return null;
+            }
+            var script = Constants.ScriptBlockWithParam1.StringFormat(functionName);
+            var parameters = PSScriptRunner.InvokeScriptBlock(null, item, _drive, script, PSScriptRunner.ReportErrors);
+            return parameters?.FirstOrDefault();
+        }
+
         #region IGetItemContent
 
         public IContentReader GetContentReader(IProviderContext context)
@@ -53,8 +66,7 @@ namespace Microsoft.PowerShell.SHiPS
 
         public object GetContentReaderDynamicParameters(IProviderContext context)
         {
-            return _contentHelper.GetContentReaderDynamicParameters(context);
-            ;
+            return GetDynamicParameters(Constants.RemoveItemDynamicParameters);
         }
 
         #endregion
@@ -87,5 +99,20 @@ namespace Microsoft.PowerShell.SHiPS
         }
 
         #endregion
+        
+        #region IRemoveItem
+        public object RemoveItemParameters {
+            get {
+                return GetDynamicParameters(Constants.RemoveItemDynamicParameters);
+            }
+        }        
+        public void RemoveItem(IProviderContext context, string path, bool recurse) {
+            var item = this._shipsLeaf.Parent;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam2.StringFormat(Constants.RemoveItem);
+            PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path);
+        }
+        #endregion
+
     }
 }

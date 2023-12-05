@@ -15,7 +15,8 @@ namespace Microsoft.PowerShell.SHiPS
     internal class ContainerNodeService : PathNodeBase,
         ISetItemContent,
         IClearItemContent,
-        INewItem
+        INewItem,
+        IRemoveItem
     {
         private readonly SHiPSDrive _drive;
         private readonly SHiPSDirectory _container;
@@ -204,6 +205,20 @@ namespace Microsoft.PowerShell.SHiPS
                 return null;
             }
             return new PathValue(nodes[0], ((SHiPSBase)nodes[0]).Name, ! ((SHiPSBase)nodes[0]).IsLeaf);
+        }
+        #endregion
+
+        #region IRemoveItem
+        public object RemoveItemParameters {
+            get {
+                return GetDynamicParameters(Constants.RemoveItemDynamicParameters);
+            }
+        }        
+        public void RemoveItem(IProviderContext context, string path, bool recurse) {
+            var item = this.ContainerNode.Parent;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam2.StringFormat(Constants.RemoveItem);
+            PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path);
         }
         #endregion
 

@@ -20,5 +20,17 @@ namespace Microsoft.PowerShell.SHiPS
         public SHiPSLeaf(string name) : base(name, isLeaf:true)
         {
         }
+
+        #region RemoveItem
+        public virtual void RemoveItem(string path, bool recurse)
+        {
+            this.Parent?.RemoveItem(path, recurse);
+        }
+        
+        public virtual object RemoveItemDynamicParameters()
+        {
+            return this.Parent?.RemoveItemDynamicParameters();
+        }   
+        #endregion
     }
 }
