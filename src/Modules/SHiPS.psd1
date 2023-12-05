@@ -19,7 +19,7 @@
             Tags = @('SHiPS', 'PSEdition_Core', 'PSEdition_Desktop', 'Linux', 'Mac')
             ProjectUri = 'https://github.com/PowerShell/SHiPS'
             ReleaseNotes = @'
-
+* Added New-Item to SHiPSDirectory
 ## 0.8.1
 * Added Get-Content and Set-Content.
 ## 0.8.0

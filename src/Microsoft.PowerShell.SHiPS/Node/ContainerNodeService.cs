@@ -14,7 +14,8 @@ namespace Microsoft.PowerShell.SHiPS
     /// </summary>
     internal class ContainerNodeService : PathNodeBase,
         ISetItemContent,
-        IClearItemContent
+        IClearItemContent,
+        INewItem
     {
         private readonly SHiPSDrive _drive;
         private readonly SHiPSDirectory _container;
@@ -63,25 +64,18 @@ namespace Microsoft.PowerShell.SHiPS
         /// </summary>
         public override object GetNodeChildrenParameters
         {
-            get
-            {
-                var item = this.ContainerNode;
-                if (item == null || item.IsLeaf)
-                {
-                    // do nothing if a leaf node
-                    return null;
-                }
-
-                // Geting dynamic parameters
-                var parameters = GetNodeChildrenDynamicParameters(item);
-                return parameters;
-            }
+            get { return GetDynamicParameters(Constants.GetChildItemDynamicParameters); }
         }
 
-        private  object GetNodeChildrenDynamicParameters(SHiPSDirectory node)
+        private  object GetDynamicParameters(string functionName)
         {
-            var script = Constants.ScriptBlockWithParam1.StringFormat(Constants.GetChildItemDynamicParameters);
-            var parameters = PSScriptRunner.InvokeScriptBlock(null, node, _drive, script, PSScriptRunner.ReportErrors);
+            var item = this.ContainerNode;
+            if (item == null)
+            {
+                return null;
+            }
+            var script = Constants.ScriptBlockWithParam1.StringFormat(functionName);
+            var parameters = PSScriptRunner.InvokeScriptBlock(null, item, _drive, script, PSScriptRunner.ReportErrors);
             return parameters?.FirstOrDefault();
         }
 
@@ -187,5 +181,31 @@ namespace Microsoft.PowerShell.SHiPS
         }
 
         #endregion
+
+        #region INewItem
+        public IEnumerable<string> NewItemTypeNames
+        {
+            get { return (IEnumerable<string>)GetDynamicParameters(Constants.NewItemTypeNames); }
+        }
+        public object NewItemParameters
+        {
+            get { return GetDynamicParameters(Constants.NewItemDynamicParameters); }
+        }
+        public IPathValue NewItem(IProviderContext context, string path, string itemTypeName, object newItemValue)
+        {
+            var item = this.ContainerNode;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam3.StringFormat(Constants.NewItem);
+            var nodes = PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors,
+                path, itemTypeName
+            )?.ToList();
+            if (nodes == null || nodes.Count == 0)
+            {
+                return null;
+            }
+            return new PathValue(nodes[0], ((SHiPSBase)nodes[0]).Name, ! ((SHiPSBase)nodes[0]).IsLeaf);
+        }
+        #endregion
+
     }
 }

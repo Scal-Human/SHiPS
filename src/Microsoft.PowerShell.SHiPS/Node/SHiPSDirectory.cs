@@ -14,6 +14,12 @@ namespace Microsoft.PowerShell.SHiPS
         internal Dictionary<string, List<IPathNode>> Children = new Dictionary<string, List<IPathNode>>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
+        /// True if the current item has been visisted. This info is useful for cached case.
+        /// </summary>
+        internal bool ItemNavigated { get; set; }
+
+        #region Constructors
+        /// <summary>
         /// Default C'tor.
         /// </summary>
         public SHiPSDirectory()
@@ -27,7 +33,9 @@ namespace Microsoft.PowerShell.SHiPS
         public SHiPSDirectory(string name) : base (name, isLeaf:false)
         {
         }
+        #endregion
 
+        #region GetChildItem
         /// <summary>
         /// It is expected that the drive class in PowerShell implements the GetChildItem().
         /// </summary>
@@ -45,10 +53,24 @@ namespace Microsoft.PowerShell.SHiPS
         {
             return null;
         }
+        #endregion
 
-        /// <summary>
-        /// True if the current item has been visisted. This info is useful for cached case.
-        /// </summary>
-        internal bool ItemNavigated { get; set; }
+        #region NewItem
+        public virtual object NewItem(string path, string itemTypeName)
+        {
+            throw new NotImplementedException();
+        }
+
+        // ToDo: This seems to never been called as ItemType is not used to validate parameters
+        public virtual string[] NewItemTypeNames()
+        {
+            return null;
+        }
+
+        public virtual object NewItemDynamicParameters()
+        {
+            return null;
+        }   
+        #endregion
     }
 }

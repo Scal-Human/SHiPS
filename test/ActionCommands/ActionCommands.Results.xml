@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="4" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2023-12-05" time="04:53:31">
+  <environment nunit-version="2.5.8.0" os-version="10.0.19045" user-domain="VENIUM" platform="Microsoft Windows 10 Home|C:\windows|\Device\Harddisk0\Partition3" cwd="C:\Host\Home" machine-name="Venium" user="Scal" clr-version="7.0.14" />
+  <culture-info current-culture="en-GB" current-uiculture="en-GB" />
+  <test-suite type="TestFixture" name="Pester" executed="True" result="Success" success="True" time="1.2556" asserts="0" description="Pester">
+    <results>
+      <test-suite type="TestFixture" name="C:\Bench23\SHiPS\test\ActionCommands\ActionCommands.Tests.ps1" executed="True" result="Success" success="True" time="1.2556" asserts="0" description="C:\Bench23\SHiPS\test\ActionCommands\ActionCommands.Tests.ps1">
+        <results>
+          <test-suite type="TestFixture" name="ActionCommands" executed="True" result="Success" success="True" time="0.6817" asserts="0" description="ActionCommands">
+            <results>
+              <test-suite type="TestFixture" name="ActionCommands.New-Item" executed="True" result="Success" success="True" time="0.4852" asserts="0" description="ActionCommands.New-Item">
+                <results>
+                  <test-suite type="TestFixture" name="ActionCommands.New-Item.The root" executed="True" result="Success" success="True" time="0.4774" asserts="0" description="ActionCommands.New-Item.The root">
+                    <results>
+                      <test-case description="Creates aa file" name="ActionCommands.New-Item.The root.Creates aa file" time="0.2992" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Accepts specific parameters" name="ActionCommands.New-Item.The root.Accepts specific parameters" time="0.0334" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Creates a folder" name="ActionCommands.New-Item.The root.Creates a folder" time="0.0281" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Rejects duplicate" name="ActionCommands.New-Item.The root.Rejects duplicate" time="0.0699" asserts="0" success="True" result="Success" executed="True" />
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
