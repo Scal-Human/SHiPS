@@ -14,6 +14,7 @@
 | Invoke-Item | X | X |
 | New-Item    | X | |
 | Remove-Item | X | X |
+| Rename-Item | X | X |
 
 
 ## SHiPS

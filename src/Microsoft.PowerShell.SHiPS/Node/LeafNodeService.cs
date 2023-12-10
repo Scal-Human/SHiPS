@@ -16,7 +16,8 @@ namespace Microsoft.PowerShell.SHiPS
         ISetItemContent,
         IClearItemContent,
         IInvokeItem,
-        IRemoveItem
+        IRemoveItem,
+        IRenameItem
     {
         private readonly SHiPSLeaf _shipsLeaf;
         private static readonly string _leaf = ".";
@@ -139,6 +140,20 @@ namespace Microsoft.PowerShell.SHiPS
             item.SHiPSProviderContext.Set(context);
             var script = Constants.ScriptBlockWithParam2.StringFormat(Constants.RemoveItem);
             PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path);
+        }
+        #endregion
+
+        #region IRenameItem
+        public object RenameItemParameters {
+            get {
+                return GetDynamicParameters(Constants.RenameItemDynamicParameters);
+            }
+        }        
+        public void RenameItem(IProviderContext context, string path, string newName) {
+            var item = this._shipsLeaf.Parent;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam3.StringFormat(Constants.RenameItem);
+            PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path, newName);
         }
         #endregion
 

@@ -17,7 +17,8 @@ namespace Microsoft.PowerShell.SHiPS
         IClearItemContent,
         IInvokeItem,
         INewItem,
-        IRemoveItem
+        IRemoveItem,
+        IRenameItem
     {
         private readonly SHiPSDrive _drive;
         private readonly SHiPSDirectory _container;
@@ -231,10 +232,24 @@ namespace Microsoft.PowerShell.SHiPS
             }
         }        
         public void RemoveItem(IProviderContext context, string path, bool recurse) {
-            var item = this.ContainerNode.Parent;
+            var item = this.ContainerNode;
             item.SHiPSProviderContext.Set(context);
             var script = Constants.ScriptBlockWithParam2.StringFormat(Constants.RemoveItem);
             PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path);
+        }
+        #endregion
+
+        #region IRenameItem
+        public object RenameItemParameters {
+            get {
+                return GetDynamicParameters(Constants.RenameItemDynamicParameters);
+            }
+        }        
+        public void RenameItem(IProviderContext context, string path, string newName) {
+            var item = this.ContainerNode.Parent;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam3.StringFormat(Constants.RenameItem);
+            PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path, newName);
         }
         #endregion
 

@@ -1,3 +1,5 @@
+using System;
+
 namespace Microsoft.PowerShell.SHiPS
 {
 
@@ -32,5 +34,16 @@ namespace Microsoft.PowerShell.SHiPS
             return this.Parent?.RemoveItemDynamicParameters();
         }   
         #endregion
+
+        #region RenameItem
+        
+        // Rename is handled by the directory to validate name vs existing items.
+
+        public virtual object RenameItemDynamicParameters()
+        {
+            return this.Parent?.RenameItemDynamicParameters();
+        }   
+        #endregion
+
     }
 }

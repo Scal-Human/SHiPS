@@ -96,5 +96,18 @@ namespace Microsoft.PowerShell.SHiPS
             return null;
         }   
         #endregion
+
+        #region RenameItem
+        public virtual void RenameItem(string path, bool recurse)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual object RenameItemDynamicParameters()
+        {
+            return null;
+        }   
+        #endregion
+
     }
 }

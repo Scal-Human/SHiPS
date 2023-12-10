@@ -20,6 +20,12 @@ Class RemoveItemParameters {
     [String] $RemoveData
 }
 
+
+Class RenameItemParameters {
+    [Parameter()]
+    [String] $RenameData
+}
+
 [SHiPSProvider(UseCache = $True)]
 class Folder : SHiPSDirectory
 {
@@ -107,6 +113,28 @@ class Folder : SHiPSDirectory
         Return ([RemoveItemParameters]::New())
     }
     #EndRegion
+
+    #Region Rename-Item
+    [Void] RenameItem([String] $Path, [String] $NewName) {
+        Write-Verbose ('{0} {1} {2} {3} {4}' -f $This.GetType().Name, $This.Name, 'RenameItem', $NewName, ($This.ProviderContext | ConvertTo-Json -Compress))
+        $NewName = Split-Path -Leaf $NewName
+        $existing = $This.ChildItems | Where-Object Name -Eq $NewName
+        If ($Null -Ne $existing) {
+            Throw ('Rename target already exists "{0}"' -f $NewName)
+        }
+        $item = $This.ChildItems | Where-Object Name -Eq (Split-Path -Leaf $Path)
+        If ($Null -Eq $item) {
+            Throw ('Item not found "{0}"' -f $Path)
+        }
+        $item.Name = $NewName
+    }
+
+    [Object] RenameItemDynamicParameters() {
+        Write-Verbose ('{0} {1} {2}' -f $This.GetType().Name, $This.Name, 'RenameItemDynamicParameters')
+        Return ([RenameItemParameters]::New())
+    }
+    #EndRegion
+
 }
 
 [SHiPSProvider(UseCache = $True)]

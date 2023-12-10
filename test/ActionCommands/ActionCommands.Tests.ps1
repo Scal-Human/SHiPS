@@ -127,44 +127,99 @@ Describe 'ActionCommands' {
     Describe 'Remove-Item' {
         Given 'Existing structure' {
             BeforeAll {
-                $Null = New-Item 'ActionCommands:\FolderToDelete1' -ItemType 'Folder'
-                $Null = New-Item 'ActionCommands:\FolderToDelete2' -ItemType 'Folder'
-                $Null = New-Item 'ActionCommands:\FolderToDelete2\File1'
-                $Null = New-Item 'ActionCommands:\FolderToDelete2\File2'
-                $Null = New-Item 'ActionCommands:\FileToDelete1'
-                $Null = New-Item 'ActionCommands:\FileToDelete2'
+                $Null = New-Item 'ActionCommands:\FolderToRemove1' -ItemType 'Folder'
+                $Null = New-Item 'ActionCommands:\FolderToRemove2' -ItemType 'Folder'
+                $Null = New-Item 'ActionCommands:\FolderToRemove2\File1'
+                $Null = New-Item 'ActionCommands:\FolderToRemove2\File2'
+                $Null = New-Item 'ActionCommands:\FileToRemove1'
+                $Null = New-Item 'ActionCommands:\FileToRemove2'
             }
             It 'Removes empty folder' {
                 $parameters = @{
-                    Path = 'ActionCommands:\FolderToDelete1'
+                    Path = 'ActionCommands:\FolderToRemove1'
                 }
                 Remove-Item @parameters -Verbose:($VerbosePreference -Eq 'Continue')
-                { Get-Item $parameters.Path -Force -ErrorAction Stop } | Should -Throw
+                { Get-Item -Force $parameters.Path -Force -ErrorAction Stop } | Should -Throw
             }
             It 'Removes non-empty folder (recurse)' {
                 $parameters = @{
-                    Path = 'ActionCommands:\FolderToDelete2'
+                    Path = 'ActionCommands:\FolderToRemove2'
                     Recurse = $True
                     Confirm = $False
                 }
                 Remove-Item @parameters -Verbose:($VerbosePreference -Eq 'Continue')
-                { Get-Item $parameters.Path -Force -ErrorAction Stop } | Should -Throw
+                { Get-Item -Force $parameters.Path -Force -ErrorAction Stop } | Should -Throw
             }
             It 'Removes file' {
                 $parameters = @{
-                    Path = 'ActionCommands:\FileToDelete1'
+                    Path = 'ActionCommands:\FileToRemove1'
                 }
                 Remove-Item @parameters -Verbose:($VerbosePreference -Eq 'Continue')
-                { Get-Item $parameters.Path -Force -ErrorAction Stop } | Should -Throw
+                { Get-Item -Force $parameters.Path -Force -ErrorAction Stop } | Should -Throw
             }
             It 'Accepts specific parameters' {
                 $parameters = @{
-                    Path = 'ActionCommands:\FileToDelete2'
+                    Path = 'ActionCommands:\FileToRemove2'
                     RemoveData = 'Recycle'
                 }
                 Remove-Item @parameters -Verbose:($VerbosePreference -Eq 'Continue')
-                { Get-Item $parameters.Path -Force -ErrorAction Stop } | Should -Throw
+                { Get-Item -Force $parameters.Path -Force -ErrorAction Stop } | Should -Throw
             }
         }
     }
+
+    Describe 'Rename-Item'{
+        Given 'Existing Folder' {
+            BeforeAll {
+                $Null = New-Item 'ActionCommands:\OldFolder' -ItemType 'Folder'
+            }
+            It 'Renames it' {
+                $parameters = @{
+                    Path = 'ActionCommands:\OldFolder'
+                    NewName = 'ActionCommands:\NewFolder'
+                }
+                Rename-Item @parameters -Verbose:($VerbosePreference -Eq 'Continue')
+                { Get-Item -Force $parameters.Path -ErrorAction Stop } | Should -Throw
+                (Get-Item -Force $parameters.NewName).Name | Should -Not -Be $Null
+            }
+        }
+        Given 'Existing File' {
+            BeforeAll {
+                $Null = New-Item 'ActionCommands:\OldFile' -ItemType 'File'
+                $Null = New-Item 'ActionCommands:\OldFile2' -ItemType 'File'
+            }
+            It 'Renames it' {
+                $parameters = @{
+                    Path = 'ActionCommands:\OldFile'
+                    NewName = 'ActionCommands:\NewFile'
+                }
+                Rename-Item @parameters -Verbose:($VerbosePreference -Eq 'Continue')
+                { Get-Item -Force $parameters.Path -ErrorAction Stop } | Should -Throw
+                (Get-Item -Force $parameters.NewName).Name | Should -Not -Be $Null
+            }
+            It 'Fails on repeat' {
+                $parameters = @{
+                    Path = 'ActionCommands:\OldFile'
+                    NewName = 'ActionCommands:\NewFile'
+                }
+                {
+                    Rename-Item @parameters -ErrorAction Stop -Verbose:($VerbosePreference -Eq 'Continue')
+                } | Should -Throw
+            }
+        }
+        Given 'Missing File' {
+            It 'Fails to rename' {
+                $parameters = @{
+                    Path = 'ActionCommands:\OldFile2'
+                    NewName = 'ActionCommands:\NewFile'
+                }
+                # Get-ChildItem 'ActionCommands:\' | Format-Table | Out-String | Write-Warning
+                {
+                    Rename-Item @parameters -ErrorAction Stop -Verbose:($VerbosePreference -Eq 'Continue')
+                    # Get-ChildItem 'ActionCommands:\' | Format-Table | Out-String | Write-Warning
+                } | Should -Throw
+            }
+        }
+    }
+
 }
