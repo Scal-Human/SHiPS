@@ -15,6 +15,7 @@ namespace Microsoft.PowerShell.SHiPS
         IGetItemContent,
         ISetItemContent,
         IClearItemContent,
+        IInvokeItem,
         IRemoveItem
     {
         private readonly SHiPSLeaf _shipsLeaf;
@@ -99,7 +100,34 @@ namespace Microsoft.PowerShell.SHiPS
         }
 
         #endregion
-        
+            
+        #region IInvokeItem
+        public object InvokeItemParameters {
+            get {
+                return GetDynamicParameters(Constants.InvokeItemDynamicParameters);
+            }
+        }        
+        public IEnumerable<object> InvokeItem(IProviderContext context, string path) {
+            var item = this._shipsLeaf;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam2.StringFormat(Constants.InvokeItem);
+            var results = PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path)?.ToList<object>();
+            if (null == results)
+            {
+                yield break;
+            }
+            foreach (var result in results)
+            {
+                // Making sure to obey the StopProcessing.
+                if (context.Stopping)
+                {
+                    yield break;
+                }
+                yield return result;
+            }
+        }
+        #endregion
+
         #region IRemoveItem
         public object RemoveItemParameters {
             get {

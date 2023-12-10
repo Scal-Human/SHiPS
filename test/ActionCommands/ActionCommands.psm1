@@ -5,6 +5,11 @@ Class GetChildItemParameters {
     [String] $Scope = '*'
 }
 
+Class InvokeItemParameters {
+    [Parameter()]
+    [String] $InvokeData
+}
+
 Class NewItemParameters {
     [Parameter()]
     [String] $NewData
@@ -32,6 +37,23 @@ class Folder : SHiPSDirectory
     [object[]] GetChildItem() {
         $items = @( $This.ChildItems )
         Return $items
+    }
+    #EndRegion
+
+    #Region Invoke-Item
+    [Object[]] InvokeItem([String] $Path) {
+        Write-Verbose ('{0} {1} {2} {3} {4}' -f $This.GetType().Name, $This.PSPath, 'InvokeItem', $Path, ($This.ProviderContext | ConvertTo-Json -Compress))
+        $invocation = [File]::New('Invoked', 'Content')
+        $invocation.Data = $This.ProviderContext.DynamicParameters.InvokeData
+        $items = @(
+            $invocation
+        )
+        Return $items
+    }
+
+    [Object] InvokeItemDynamicParameters() {
+        Write-Verbose ('{0} {1} {2}' -f $This.GetType().Name, $This.PSPath, 'InvokeItemDynamicParameters')
+        Return ([InvokeItemParameters]::New())
     }
     #EndRegion
 
@@ -73,12 +95,11 @@ class Folder : SHiPSDirectory
         Return ([NewItemParameters]::New())
     }
     #EndRegion
+
     #Region Remove-Item
     [Void] RemoveItem([String] $Path) {
         Write-Verbose ('{0} {1} {2} {3} {4}' -f $This.GetType().Name, $This.Name, 'RemoveItem', (Split-Path -Leaf $Path), ($This.ProviderContext | ConvertTo-Json -Compress))
-        # $This.ChildItems | Format-Table | Out-String | Write-Warning
         $This.ChildItems = $This.ChildItems | Where-Object Name -Ne (Split-Path -Leaf $Path)
-        # $This.ChildItems | Format-Table | Out-String | Write-Warning
     }
 
     [Object] RemoveItemDynamicParameters() {
@@ -107,5 +128,22 @@ class File : SHiPSLeaf
     File([string]$name, [String] $Content): base($name){
         $This.Content = $Content
     }
+
+    #Region Invoke-Item
+    [Object[]] InvokeItem([String] $Path) {
+        Write-Verbose ('{0} {1} {2} {3} {4}' -f $This.GetType().Name, $This.PSPath, 'InvokeItem', $Path, ($This.ProviderContext | ConvertTo-Json -Compress))
+        $invocation = [File]::New('Invoked', 'Content')
+        $invocation.Data = $This.ProviderContext.DynamicParameters.InvokeData
+        $items = @(
+            $invocation
+        )
+        Return $items
+    }
+
+    [Object] InvokeItemDynamicParameters() {
+        Write-Verbose ('{0} {1} {2}' -f $This.GetType().Name, $This.PSPath, 'InvokeItemDynamicParameters')
+        Return ([InvokeItemParameters]::New())
+    }
+    #EndRegion
 
 }

@@ -7,6 +7,14 @@
 
   Thanks to the original team for their work ;-)
 
+  Note: for the Invoke-Item, a missing piece ahev been changed in the underlying p2f Provider class (return of InvokeItem results).
+
+| Action Command | SHiPSDirectory | SHiPSLeaf |
+|---|:---:|:---:|
+| Invoke-Item | X | X |
+| New-Item    | X | |
+| Remove-Item | X | X |
+
 
 ## SHiPS
 

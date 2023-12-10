@@ -11,7 +11,6 @@ Param ()
 Set-Alias -Name 'Given' -Value 'Context' # -Option AllScope # Pester conflicts with PSScriptAnalyzer because non-standard naming
 
 Describe 'ActionCommands' {
-
     BeforeAll {
         Import-Module -Force (Join-Path $PSScriptRoot '..\..\src\out\SHiPS\SHiPS.psd1') -Verbose:$False
         Import-Module -Force (Join-Path $PSScriptRoot 'ActionCommands.psm1') -Verbose:$False
@@ -20,6 +19,43 @@ Describe 'ActionCommands' {
     AfterAll {
         Remove-PSDrive -Name 'ActionCommands'
         Remove-Module -Force 'SHiPS' -Verbose:$False
+    }
+
+    Describe 'Invoke-Item' {
+        BeforeAll {
+            $Null = New-Item 'ActionCommands:\DirectoryNotInvokable' -ItemType 'Directory'
+            $Null = New-Item 'ActionCommands:\FolderToInvoke' -ItemType 'Folder'
+            $Null = New-Item 'ActionCommands:\FileToInvoke' -ItemType 'File'
+        }
+        Given 'A directory' {
+            It 'Rejects invocation' {
+                {
+                    Invoke-Item -Path 'ActionCommands:\DirectoryNotInvokable' -Verbose:($VerbosePreference -Eq 'Continue') -ErrorAction Stop
+                } | Should -Throw
+            }
+        }
+        Given 'A folder' {
+            It 'Invokes it' {
+                $parameters = @{
+                    Path = 'ActionCommands:\FolderToInvoke'
+                    InvokeData = 'Dummy'
+                }
+                $result = Invoke-Item @parameters -Verbose:($VerbosePreference -Eq 'Continue')
+                $result | Should -Not -Be $Null
+                $result.Data | Should -Be $parameters.InvokeData
+            }
+        }
+        Given 'A file' {
+            It 'Invokes it' {
+                $parameters = @{
+                    Path = 'ActionCommands:\FileToInvoke'
+                    InvokeData = 'Dummy'
+                }
+                $result = Invoke-Item @parameters  -Verbose:($VerbosePreference -Eq 'Continue')
+                $result | Should -Not -Be $Null
+                $result.Data | Should -Be $parameters.InvokeData
+            }
+        }
     }
 
     Describe 'New-Item' {
@@ -38,7 +74,7 @@ Describe 'ActionCommands' {
             }
         }
         Given 'Folder class' {
-            It 'Creates aa file' {
+            It 'Creates a file' {
                 $parameters = @{
                     Path = 'ActionCommands:\NewFile1'
                     ItemType = 'Dummy'
