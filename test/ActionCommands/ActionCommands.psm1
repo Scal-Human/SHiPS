@@ -15,6 +15,11 @@ Class InvokeItemParameters {
     [String] $InvokeData
 }
 
+Class MoveItemParameters {
+    [Parameter()]
+    [String] $MoveData
+}
+
 Class NewItemParameters {
     [Parameter()]
     [String] $NewData
@@ -76,6 +81,17 @@ class Folder : SHiPSDirectory
     [Object] InvokeItemDynamicParameters() {
         Write-Verbose ('{0} {1} {2}' -f $This.GetType().Name, $This.PSPath, 'InvokeItemDynamicParameters')
         Return ([InvokeItemParameters]::New())
+    }
+    #EndRegion
+
+    #Region Move-Item
+    [Void] MoveItem([String] $Path, [String] $NewName) {
+        Write-Verbose ('{0} {1} {2} {3} {4}' -f $This.GetType().Name, $This.Name, 'MoveItem', $NewName, ($This.ProviderContext | ConvertTo-Json -Compress))
+    }
+
+    [Object] MoveItemDynamicParameters() {
+        Write-Verbose ('{0} {1} {2}' -f $This.GetType().Name, $This.Name, 'MoveItemDynamicParameters')
+        Return ([MoveItemParameters]::New())
     }
     #EndRegion
 
@@ -181,6 +197,17 @@ class File : SHiPSLeaf
     [Object] CopyItemDynamicParameters() {
         Write-Verbose ('{0} {1} {2}' -f $This.GetType().Name, $This.Name, 'CopyItemDynamicParameters')
         Return ([CopyItemParameters]::New())
+    }
+    #EndRegion
+
+    #Region Move-Item
+    [Void] MoveItem([String] $Path, [String] $NewName) {
+        Write-Verbose ('{0} {1} {2} {3} {4}' -f $This.GetType().Name, $This.Name, 'MoveItem', $NewName, ($This.ProviderContext | ConvertTo-Json -Compress))
+    }
+
+    [Object] MoveItemDynamicParameters() {
+        Write-Verbose ('{0} {1} {2}' -f $This.GetType().Name, $This.Name, 'MoveItemDynamicParameters')
+        Return ([MoveItemParameters]::New())
     }
     #EndRegion
 

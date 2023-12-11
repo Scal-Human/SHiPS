@@ -70,10 +70,20 @@ namespace Microsoft.PowerShell.SHiPS
         #region CopyItem
         public virtual void CopyItem(string path, string destination)
         {
-            // return null;
         }
 
         public virtual object CopyItemDynamicParameters()
+        {
+            return null;
+        }
+        #endregion
+
+        #region MoveItem
+        public virtual void MoveItem(string path, string destination)
+        {
+        }
+
+        public virtual object MoveItemDynamicParameters()
         {
             return null;
         }

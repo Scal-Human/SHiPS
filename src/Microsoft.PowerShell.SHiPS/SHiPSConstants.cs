@@ -22,6 +22,8 @@ namespace Microsoft.PowerShell.SHiPS
         internal static readonly string SetContent = "SetContent";
         internal static readonly string CopyItem = "CopyItem";
         internal static readonly string CopyItemDynamicParameters = "CopyItemDynamicParameters";
+        internal static readonly string MoveItem = "MoveItem";
+        internal static readonly string MoveItemDynamicParameters = "MoveItemDynamicParameters";
         internal static readonly string NewItem = "NewItem";
         internal static readonly string NewItemTypeNames = "NewItemTypeNames";
         internal static readonly string InvokeItem = "InvokeItem";
@@ -48,14 +50,14 @@ namespace Microsoft.PowerShell.SHiPS
             "Get-Content",
             "Set-Content",
             // Added after 0.8.1
+            "Copy-Item",
             "Invoke-Item",
             "New-Item",
+            "Move-Item",
             "Remove-Item",
             "Rename-Item",
              // Below are NotSupported commands, but we do handle their error messages.
             "Clear-Content",
-            "Move-Item",
-            "Copy-Item",
             "Clear-Item",
             "Set-Item"
         };

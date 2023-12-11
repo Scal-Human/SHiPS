@@ -227,7 +227,7 @@ Describe 'ActionCommands' {
             BeforeAll {
                 $Null = New-Item 'ActionCommands:\FileSource' -ItemType 'File'
             }
-            It 'copies it' {
+            It 'Copies it' {
                 $parameters = @{
                     Path = 'ActionCommands:\FileSource'
                     Destination = 'ActionCommands:\FileTarget'
@@ -255,7 +255,7 @@ Describe 'ActionCommands' {
                 }
                 Copy-Item @parameters -Recurse
             }
-        }        
+        }
         Given 'Mix Providers' {
             BeforeAll {
                 $Null = New-Item 'ActionCommands:\SourceFolder2' -ItemType 'Folder'
@@ -267,6 +267,33 @@ Describe 'ActionCommands' {
                     Destination = $Env:TEMP
                 }
                 { Copy-Item @parameters -ErrorAction Stop } | Should -Throw
+            }
+        }
+    }
+
+    Describe 'Move-Item' {
+        Given 'Existing File' {
+            BeforeAll {
+                $Null = New-Item 'ActionCommands:\FileToMove' -ItemType 'File'
+            }
+            It 'Moves it' {
+                $parameters = @{
+                    Path = 'ActionCommands:\FileToMove'
+                    Destination = 'ActionCommands:\FileMoved'
+                }
+                Move-Item @parameters
+            }
+        }
+        Given 'Existing Folder' {
+            BeforeAll {
+                $Null = New-Item 'ActionCommands:\FolderToMove' -ItemType 'Folder'
+            }
+            It 'Moves it' {
+                $parameters = @{
+                    Path = 'ActionCommands:\FileToMove'
+                    Destination = 'ActionCommands:\FileMoved'
+                }
+                Move-Item @parameters
             }
         }
     }

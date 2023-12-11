@@ -19,6 +19,7 @@
             Tags = @('SHiPS', 'PSEdition_Core', 'PSEdition_Desktop', 'Linux', 'Mac')
             ProjectUri = 'https://github.com/PowerShell/SHiPS'
             ReleaseNotes = @'
+* Added Move-Item to SHiPSDirectory and SHiPSLeaf
 * Added Copy-Item to SHiPSDirectory and SHiPSLeaf
 * Added Rename-Item to SHiPSDirectory and SHiPSLeaf
 * Added Invoke-Item to SHiPSDirectory and SHiPSLeaf

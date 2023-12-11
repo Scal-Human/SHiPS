@@ -17,6 +17,7 @@ namespace Microsoft.PowerShell.SHiPS
         IClearItemContent,
         ICopyItem,
         IInvokeItem,
+        IMoveItem,
         IRemoveItem,
         IRenameItem
     {
@@ -145,6 +146,21 @@ namespace Microsoft.PowerShell.SHiPS
         }
         #endregion
 
+        #region IMoveItem
+        public object MoveItemParameters {
+            get {
+                return GetDynamicParameters(Constants.MoveItemDynamicParameters);
+            }
+        }        
+        public IPathValue MoveItem(IProviderContext context, string path, string movePath, IPathValue destinationContainer) {
+            var item = this._shipsLeaf;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam3.StringFormat(Constants.MoveItem);
+            PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path, movePath);
+            return null; // Move-Item does not return anything
+        }
+        #endregion
+ 
         #region IRemoveItem
         public object RemoveItemParameters {
             get {

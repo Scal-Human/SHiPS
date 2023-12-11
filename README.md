@@ -13,6 +13,7 @@
 |---|:---:|:---:|
 | Copy-Item | X | X |
 | Invoke-Item | X | X |
+| Move-Item | X | X |
 | New-Item    | X | |
 | Remove-Item | X | X |
 | Rename-Item | X | X |
