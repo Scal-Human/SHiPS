@@ -20,6 +20,8 @@ namespace Microsoft.PowerShell.SHiPS
         internal static readonly string GetChildItem = "GetChildItem";
         internal static readonly string GetContent = "GetContent";
         internal static readonly string SetContent = "SetContent";
+        internal static readonly string CopyItem = "CopyItem";
+        internal static readonly string CopyItemDynamicParameters = "CopyItemDynamicParameters";
         internal static readonly string NewItem = "NewItem";
         internal static readonly string NewItemTypeNames = "NewItemTypeNames";
         internal static readonly string InvokeItem = "InvokeItem";

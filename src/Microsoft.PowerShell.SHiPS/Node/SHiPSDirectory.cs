@@ -55,7 +55,7 @@ namespace Microsoft.PowerShell.SHiPS
         }
         #endregion
 
-        #region IInvokeItem
+        #region InvokeItem
         public virtual IEnumerable<object> InvokeItem(string path)
         {
             throw new NotImplementedException();
@@ -65,6 +65,18 @@ namespace Microsoft.PowerShell.SHiPS
         {
             return null;
         }   
+        #endregion
+
+        #region CopyItem
+        public virtual void CopyItem(string path, string destination)
+        {
+            // return null;
+        }
+
+        public virtual object CopyItemDynamicParameters()
+        {
+            return null;
+        }
         #endregion
 
         #region NewItem

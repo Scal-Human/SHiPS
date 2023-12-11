@@ -15,6 +15,7 @@ namespace Microsoft.PowerShell.SHiPS
     internal class ContainerNodeService : PathNodeBase,
         ISetItemContent,
         IClearItemContent,
+        ICopyItem,
         IInvokeItem,
         INewItem,
         IRemoveItem,
@@ -183,6 +184,21 @@ namespace Microsoft.PowerShell.SHiPS
             return _contentHelper.ClearContentDynamicParameters(context);
         }
 
+        #endregion
+
+        #region ICopyItem
+        public object CopyItemParameters {
+            get {
+                return GetDynamicParameters(Constants.CopyItemDynamicParameters);
+            }
+        }        
+        public IPathValue CopyItem(IProviderContext context, string path, string copyPath, IPathValue destinationContainer, bool recurse) {
+            var item = this.ContainerNode;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam3.StringFormat(Constants.CopyItem);
+            PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path, copyPath);
+            return null; // Copy-Item does not return anything
+        }
         #endregion
 
         #region IInvokeItem

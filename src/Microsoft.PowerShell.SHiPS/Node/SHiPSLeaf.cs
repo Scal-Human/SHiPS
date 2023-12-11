@@ -23,6 +23,18 @@ namespace Microsoft.PowerShell.SHiPS
         {
         }
 
+        #region CopyItem        
+        public virtual object CopyItem(string path, string destination)
+        {
+            return null;
+        }
+
+        public virtual object CopyItemDynamicParameters()
+        {
+            return null;
+        }   
+        #endregion
+
         #region RemoveItem
         public virtual void RemoveItem(string path, bool recurse)
         {

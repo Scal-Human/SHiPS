@@ -1,77 +1,97 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="16" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2023-12-10" time="22:13:25">
-  <environment machine-name="Venium" user="Scal" platform="Microsoft Windows 10 Home|C:\windows|\Device\Harddisk0\Partition3" cwd="C:\Host\Home" os-version="10.0.19045" nunit-version="2.5.8.0" user-domain="VENIUM" clr-version="7.0.14" />
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="20" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2023-12-11" time="02:25:21">
+  <environment clr-version="7.0.14" user="Scal" user-domain="VENIUM" os-version="10.0.19045" machine-name="Venium" nunit-version="2.5.8.0" platform="Microsoft Windows 10 Home|C:\windows|\Device\Harddisk0\Partition3" cwd="C:\Host\Home" />
   <culture-info current-culture="en-GB" current-uiculture="en-GB" />
-  <test-suite type="TestFixture" name="Pester" executed="True" result="Success" success="True" time="1.226" asserts="0" description="Pester">
+  <test-suite type="TestFixture" name="Pester" executed="True" result="Success" success="True" time="1.1836" asserts="0" description="Pester">
     <results>
-      <test-suite type="TestFixture" name="C:\Bench23\SHiPS\test\ActionCommands\ActionCommands.Tests.ps1" executed="True" result="Success" success="True" time="1.226" asserts="0" description="C:\Bench23\SHiPS\test\ActionCommands\ActionCommands.Tests.ps1">
+      <test-suite type="TestFixture" name="C:\Bench23\SHiPS\test\ActionCommands\ActionCommands.Tests.ps1" executed="True" result="Success" success="True" time="1.1836" asserts="0" description="C:\Bench23\SHiPS\test\ActionCommands\ActionCommands.Tests.ps1">
         <results>
-          <test-suite type="TestFixture" name="ActionCommands" executed="True" result="Success" success="True" time="0.838" asserts="0" description="ActionCommands">
+          <test-suite type="TestFixture" name="ActionCommands" executed="True" result="Success" success="True" time="0.8295" asserts="0" description="ActionCommands">
             <results>
-              <test-suite type="TestFixture" name="ActionCommands.Invoke-Item" executed="True" result="Success" success="True" time="0.3417" asserts="0" description="ActionCommands.Invoke-Item">
+              <test-suite type="TestFixture" name="ActionCommands.Invoke-Item" executed="True" result="Success" success="True" time="0.2736" asserts="0" description="ActionCommands.Invoke-Item">
                 <results>
-                  <test-suite type="TestFixture" name="ActionCommands.Invoke-Item.A directory" executed="True" result="Success" success="True" time="0.181" asserts="0" description="ActionCommands.Invoke-Item.A directory">
+                  <test-suite type="TestFixture" name="ActionCommands.Invoke-Item.A directory" executed="True" result="Success" success="True" time="0.1513" asserts="0" description="ActionCommands.Invoke-Item.A directory">
                     <results>
-                      <test-case description="Rejects invocation" name="ActionCommands.Invoke-Item.A directory.Rejects invocation" time="0.1408" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Rejects invocation" name="ActionCommands.Invoke-Item.A directory.Rejects invocation" time="0.1284" asserts="0" success="True" result="Success" executed="True" />
                     </results>
                   </test-suite>
-                  <test-suite type="TestFixture" name="ActionCommands.Invoke-Item.A folder" executed="True" result="Success" success="True" time="0.2457" asserts="0" description="ActionCommands.Invoke-Item.A folder">
+                  <test-suite type="TestFixture" name="ActionCommands.Invoke-Item.A folder" executed="True" result="Success" success="True" time="0.1924" asserts="0" description="ActionCommands.Invoke-Item.A folder">
                     <results>
-                      <test-case description="Invokes it" name="ActionCommands.Invoke-Item.A folder.Invokes it" time="0.0606" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Invokes it" name="ActionCommands.Invoke-Item.A folder.Invokes it" time="0.0375" asserts="0" success="True" result="Success" executed="True" />
                     </results>
                   </test-suite>
-                  <test-suite type="TestFixture" name="ActionCommands.Invoke-Item.A file" executed="True" result="Success" success="True" time="0.2698" asserts="0" description="ActionCommands.Invoke-Item.A file">
+                  <test-suite type="TestFixture" name="ActionCommands.Invoke-Item.A file" executed="True" result="Success" success="True" time="0.2205" asserts="0" description="ActionCommands.Invoke-Item.A file">
                     <results>
-                      <test-case description="Invokes it" name="ActionCommands.Invoke-Item.A file.Invokes it" time="0.0189" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Invokes it" name="ActionCommands.Invoke-Item.A file.Invokes it" time="0.0232" asserts="0" success="True" result="Success" executed="True" />
                     </results>
                   </test-suite>
                 </results>
               </test-suite>
-              <test-suite type="TestFixture" name="ActionCommands.New-Item" executed="True" result="Success" success="True" time="0.4979" asserts="0" description="ActionCommands.New-Item">
+              <test-suite type="TestFixture" name="ActionCommands.New-Item" executed="True" result="Success" success="True" time="0.3953" asserts="0" description="ActionCommands.New-Item">
                 <results>
-                  <test-suite type="TestFixture" name="ActionCommands.New-Item.SHiPSDirectory" executed="True" result="Success" success="True" time="0.0438" asserts="0" description="ActionCommands.New-Item.SHiPSDirectory">
+                  <test-suite type="TestFixture" name="ActionCommands.New-Item.SHiPSDirectory" executed="True" result="Success" success="True" time="0.0295" asserts="0" description="ActionCommands.New-Item.SHiPSDirectory">
                     <results>
-                      <test-case description="Should fail" name="ActionCommands.New-Item.SHiPSDirectory.Should fail" time="0.0286" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Should fail" name="ActionCommands.New-Item.SHiPSDirectory.Should fail" time="0.0173" asserts="0" success="True" result="Success" executed="True" />
                     </results>
                   </test-suite>
-                  <test-suite type="TestFixture" name="ActionCommands.New-Item.Folder class" executed="True" result="Success" success="True" time="0.1533" asserts="0" description="ActionCommands.New-Item.Folder class">
+                  <test-suite type="TestFixture" name="ActionCommands.New-Item.Folder class" executed="True" result="Success" success="True" time="0.1186" asserts="0" description="ActionCommands.New-Item.Folder class">
                     <results>
-                      <test-case description="Creates a file" name="ActionCommands.New-Item.Folder class.Creates a file" time="0.0251" asserts="0" success="True" result="Success" executed="True" />
-                      <test-case description="Accepts specific parameters" name="ActionCommands.New-Item.Folder class.Accepts specific parameters" time="0.032" asserts="0" success="True" result="Success" executed="True" />
-                      <test-case description="Creates a folder" name="ActionCommands.New-Item.Folder class.Creates a folder" time="0.0222" asserts="0" success="True" result="Success" executed="True" />
-                      <test-case description="Rejects duplicate" name="ActionCommands.New-Item.Folder class.Rejects duplicate" time="0.0263" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Creates a file" name="ActionCommands.New-Item.Folder class.Creates a file" time="0.0192" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Accepts specific parameters" name="ActionCommands.New-Item.Folder class.Accepts specific parameters" time="0.0191" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Creates a folder" name="ActionCommands.New-Item.Folder class.Creates a folder" time="0.0324" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Rejects duplicate" name="ActionCommands.New-Item.Folder class.Rejects duplicate" time="0.0145" asserts="0" success="True" result="Success" executed="True" />
                     </results>
                   </test-suite>
                 </results>
               </test-suite>
-              <test-suite type="TestFixture" name="ActionCommands.Remove-Item" executed="True" result="Success" success="True" time="0.6118" asserts="0" description="ActionCommands.Remove-Item">
+              <test-suite type="TestFixture" name="ActionCommands.Remove-Item" executed="True" result="Success" success="True" time="0.4924" asserts="0" description="ActionCommands.Remove-Item">
                 <results>
-                  <test-suite type="TestFixture" name="ActionCommands.Remove-Item.Existing structure" executed="True" result="Success" success="True" time="0.1109" asserts="0" description="ActionCommands.Remove-Item.Existing structure">
+                  <test-suite type="TestFixture" name="ActionCommands.Remove-Item.Existing structure" executed="True" result="Success" success="True" time="0.0942" asserts="0" description="ActionCommands.Remove-Item.Existing structure">
                     <results>
-                      <test-case description="Removes empty folder" name="ActionCommands.Remove-Item.Existing structure.Removes empty folder" time="0.0327" asserts="0" success="True" result="Success" executed="True" />
-                      <test-case description="Removes non-empty folder (recurse)" name="ActionCommands.Remove-Item.Existing structure.Removes non-empty folder (recurse)" time="0.0202" asserts="0" success="True" result="Success" executed="True" />
-                      <test-case description="Removes file" name="ActionCommands.Remove-Item.Existing structure.Removes file" time="0.0147" asserts="0" success="True" result="Success" executed="True" />
-                      <test-case description="Accepts specific parameters" name="ActionCommands.Remove-Item.Existing structure.Accepts specific parameters" time="0.0122" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Removes empty folder" name="ActionCommands.Remove-Item.Existing structure.Removes empty folder" time="0.0265" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Removes non-empty folder (recurse)" name="ActionCommands.Remove-Item.Existing structure.Removes non-empty folder (recurse)" time="0.0155" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Removes file" name="ActionCommands.Remove-Item.Existing structure.Removes file" time="0.014" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Accepts specific parameters" name="ActionCommands.Remove-Item.Existing structure.Accepts specific parameters" time="0.0092" asserts="0" success="True" result="Success" executed="True" />
                     </results>
                   </test-suite>
                 </results>
               </test-suite>
-              <test-suite type="TestFixture" name="ActionCommands.Rename-Item" executed="True" result="Success" success="True" time="0.7168" asserts="0" description="ActionCommands.Rename-Item">
+              <test-suite type="TestFixture" name="ActionCommands.Rename-Item" executed="True" result="Success" success="True" time="0.601" asserts="0" description="ActionCommands.Rename-Item">
                 <results>
-                  <test-suite type="TestFixture" name="ActionCommands.Rename-Item.Existing Folder" executed="True" result="Success" success="True" time="0.0458" asserts="0" description="ActionCommands.Rename-Item.Existing Folder">
+                  <test-suite type="TestFixture" name="ActionCommands.Rename-Item.Existing Folder" executed="True" result="Success" success="True" time="0.0342" asserts="0" description="ActionCommands.Rename-Item.Existing Folder">
                     <results>
-                      <test-case description="Renames it" name="ActionCommands.Rename-Item.Existing Folder.Renames it" time="0.0361" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Renames it" name="ActionCommands.Rename-Item.Existing Folder.Renames it" time="0.0269" asserts="0" success="True" result="Success" executed="True" />
                     </results>
                   </test-suite>
-                  <test-suite type="TestFixture" name="ActionCommands.Rename-Item.Existing File" executed="True" result="Success" success="True" time="0.0847" asserts="0" description="ActionCommands.Rename-Item.Existing File">
+                  <test-suite type="TestFixture" name="ActionCommands.Rename-Item.Existing File" executed="True" result="Success" success="True" time="0.0893" asserts="0" description="ActionCommands.Rename-Item.Existing File">
                     <results>
-                      <test-case description="Renames it" name="ActionCommands.Rename-Item.Existing File.Renames it" time="0.0176" asserts="0" success="True" result="Success" executed="True" />
-                      <test-case description="Fails on repeat" name="ActionCommands.Rename-Item.Existing File.Fails on repeat" time="0.0067" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Renames it" name="ActionCommands.Rename-Item.Existing File.Renames it" time="0.027" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Fails on repeat" name="ActionCommands.Rename-Item.Existing File.Fails on repeat" time="0.0165" asserts="0" success="True" result="Success" executed="True" />
                     </results>
                   </test-suite>
-                  <test-suite type="TestFixture" name="ActionCommands.Rename-Item.Missing File" executed="True" result="Success" success="True" time="0.1017" asserts="0" description="ActionCommands.Rename-Item.Missing File">
+                  <test-suite type="TestFixture" name="ActionCommands.Rename-Item.Missing File" executed="True" result="Success" success="True" time="0.1054" asserts="0" description="ActionCommands.Rename-Item.Missing File">
                     <results>
-                      <test-case description="Fails to rename" name="ActionCommands.Rename-Item.Missing File.Fails to rename" time="0.0138" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Fails to rename" name="ActionCommands.Rename-Item.Missing File.Fails to rename" time="0.0126" asserts="0" success="True" result="Success" executed="True" />
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="TestFixture" name="ActionCommands.Copy-Item" executed="True" result="Success" success="True" time="0.7091" asserts="0" description="ActionCommands.Copy-Item">
+                <results>
+                  <test-suite type="TestFixture" name="ActionCommands.Copy-Item.Existing File" executed="True" result="Success" success="True" time="0.0342" asserts="0" description="ActionCommands.Copy-Item.Existing File">
+                    <results>
+                      <test-case description="copies it" name="ActionCommands.Copy-Item.Existing File.copies it" time="0.0224" asserts="0" success="True" result="Success" executed="True" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="ActionCommands.Copy-Item.Existing Folder" executed="True" result="Success" success="True" time="0.0807" asserts="0" description="ActionCommands.Copy-Item.Existing Folder">
+                    <results>
+                      <test-case description="Copies it" name="ActionCommands.Copy-Item.Existing Folder.Copies it" time="0.0163" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Copies it recursively" name="ActionCommands.Copy-Item.Existing Folder.Copies it recursively" time="0.0088" asserts="0" success="True" result="Success" executed="True" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="ActionCommands.Copy-Item.Mix Providers" executed="True" result="Success" success="True" time="0.1052" asserts="0" description="ActionCommands.Copy-Item.Mix Providers">
+                    <results>
+                      <test-case description="Rejects copy" name="ActionCommands.Copy-Item.Mix Providers.Rejects copy" time="0.0108" asserts="0" success="True" result="Success" executed="True" />
                     </results>
                   </test-suite>
                 </results>

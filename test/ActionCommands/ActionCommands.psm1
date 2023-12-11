@@ -5,6 +5,11 @@ Class GetChildItemParameters {
     [String] $Scope = '*'
 }
 
+Class CopyItemParameters {
+    [Parameter()]
+    [String] $CopyData
+}
+
 Class InvokeItemParameters {
     [Parameter()]
     [String] $InvokeData
@@ -43,6 +48,17 @@ class Folder : SHiPSDirectory
     [object[]] GetChildItem() {
         $items = @( $This.ChildItems )
         Return $items
+    }
+    #EndRegion
+
+    #Region Copy-Item
+    [Void] CopyItem([String] $Path, [String] $NewName) {
+        Write-Verbose ('{0} {1} {2} {3} {4}' -f $This.GetType().Name, $This.Name, 'CopyItem', $NewName, ($This.ProviderContext | ConvertTo-Json -Compress))
+    }
+
+    [Object] CopyItemDynamicParameters() {
+        Write-Verbose ('{0} {1} {2}' -f $This.GetType().Name, $This.Name, 'CopyItemDynamicParameters')
+        Return ([CopyItemParameters]::New())
     }
     #EndRegion
 
@@ -156,6 +172,17 @@ class File : SHiPSLeaf
     File([string]$name, [String] $Content): base($name){
         $This.Content = $Content
     }
+
+    #Region Copy-Item
+    [Void] CopyItem([String] $Path, [String] $NewName) {
+        Write-Verbose ('{0} {1} {2} {3} {4}' -f $This.GetType().Name, $This.Name, 'CopyItem', $NewName, ($This.ProviderContext | ConvertTo-Json -Compress))
+    }
+
+    [Object] CopyItemDynamicParameters() {
+        Write-Verbose ('{0} {1} {2}' -f $This.GetType().Name, $This.Name, 'CopyItemDynamicParameters')
+        Return ([CopyItemParameters]::New())
+    }
+    #EndRegion
 
     #Region Invoke-Item
     [Object[]] InvokeItem([String] $Path) {

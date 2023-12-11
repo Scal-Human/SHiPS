@@ -222,4 +222,53 @@ Describe 'ActionCommands' {
         }
     }
 
+    Describe 'Copy-Item' {
+        Given 'Existing File' {
+            BeforeAll {
+                $Null = New-Item 'ActionCommands:\FileSource' -ItemType 'File'
+            }
+            It 'copies it' {
+                $parameters = @{
+                    Path = 'ActionCommands:\FileSource'
+                    Destination = 'ActionCommands:\FileTarget'
+                }
+                Copy-Item @parameters
+            }
+        }
+        Given 'Existing Folder' {
+            BeforeAll {
+                $Null = New-Item 'ActionCommands:\SourceFolder' -ItemType 'Folder'
+                $Null = New-Item 'ActionCommands:\SourceFolder\FolderSource' -ItemType 'Folder'
+                $Null = New-Item 'ActionCommands:\TargetFolder' -ItemType 'Folder'
+            }
+            It 'Copies it' {
+                $parameters = @{
+                    Path = 'ActionCommands:\SourceFolder\FolderSource'
+                    Destination = 'ActionCommands:\TargetFolder\FolderTarget1'
+                }
+                Copy-Item @parameters
+            }
+            It 'Copies it recursively' {
+                $parameters = @{
+                    Path = 'ActionCommands:\SourceFolder\FolderSource'
+                    Destination = 'ActionCommands:\TargetFolder\FolderTarget2'
+                }
+                Copy-Item @parameters -Recurse
+            }
+        }        
+        Given 'Mix Providers' {
+            BeforeAll {
+                $Null = New-Item 'ActionCommands:\SourceFolder2' -ItemType 'Folder'
+                $Null = New-Item 'ActionCommands:\SourceFolder2\FolderSource' -ItemType 'Folder'
+            }
+            It 'Rejects copy' {
+                $parameters = @{
+                    Path = 'ActionCommands:\SourceFolder\FolderSource'
+                    Destination = $Env:TEMP
+                }
+                { Copy-Item @parameters -ErrorAction Stop } | Should -Throw
+            }
+        }
+    }
+
 }
