@@ -1,6 +1,6 @@
 @{
     RootModule= 'Microsoft.PowerShell.SHiPS.dll'
-    ModuleVersion = '0.8.1'
+    ModuleVersion = '0.9.0'
     GUID = 'A5FE6B04-385F-470F-9347-66EB3645B422'
     Author = 'Microsoft Corporation'
     CompanyName = 'Microsoft Corporation'
@@ -19,7 +19,12 @@
             Tags = @('SHiPS', 'PSEdition_Core', 'PSEdition_Desktop', 'Linux', 'Mac')
             ProjectUri = 'https://github.com/PowerShell/SHiPS'
             ReleaseNotes = @'
-
+* Added Move-Item to SHiPSDirectory and SHiPSLeaf
+* Added Copy-Item to SHiPSDirectory and SHiPSLeaf
+* Added Rename-Item to SHiPSDirectory and SHiPSLeaf
+* Added Invoke-Item to SHiPSDirectory and SHiPSLeaf
+* Added Remove-Item to SHiPSDirectory and SHiPSLeaf
+* Added New-Item to SHiPSDirectory
 ## 0.8.1
 * Added Get-Content and Set-Content.
 ## 0.8.0

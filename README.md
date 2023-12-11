@@ -1,5 +1,26 @@
 # Simple Hierarchy in PowerShell (SHiPS)
 
+## About this fork
+
+  For multiple projects I am working on, I need to handle some commands that are not currently integrated in version 0.8.1.
+  I will at one point propose a pull request, this is not a fork because of a divergence but I need these functionalities and do not have the habit of online collaboration (does it take time, are they still alive ...).
+
+  Thanks to the original team for their work ;-)
+
+  Note: for the Invoke-Item, a missing piece have been changed in the underlying p2f Provider class (return of InvokeItem results).
+
+| Action Command | SHiPSDirectory | SHiPSLeaf |
+|---|:---:|:---:|
+| Copy-Item | X | X |
+| Invoke-Item | X | X |
+| Move-Item | X | X |
+| New-Item    | X | |
+| Remove-Item | X | X |
+| Rename-Item | X | X |
+
+
+## SHiPS
+
 A [PowerShell provider][ps-provider] allows any data store to be exposed like a file system as if it were a mounted drive.
 In other words, the data in your data store can be treated like files and directories so that a user can navigate data via `cd` or `dir`.
 SHiPS is a PowerShell provider.

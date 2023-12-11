@@ -793,12 +793,7 @@ namespace CodeOwls.PowerShell.Provider
                 {
                     return;
                 }
-
-                // TODO: determine what exactly to return here
-                //  http://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0CCAQFjAA&url=http%3A%2F%2Fmsdn.microsoft.com%2Fen-us%2Flibrary%2Fsystem.management.automation.provider.itemcmdletprovider.invokedefaultaction(v%3Dvs.85).aspx&ei=28vLTpyrJ42utwfUo6WYAQ&usg=AFQjCNFto_ye_BBjxxWfzBFGfNxw3eEgTw
-                //  docs tell me to return the item being invoked... but I'm not sure.
-                //  is there any way for the target of the invoke to return data to the runspace??
-                //results.ToList().ForEach(r => this.WriteObject(r));
+                results.ToList().ForEach(r => this.WriteItemObject(r, path, false));
             }
             catch( Exception e )
             {

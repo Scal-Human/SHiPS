@@ -14,7 +14,13 @@ namespace Microsoft.PowerShell.SHiPS
     /// </summary>
     internal class ContainerNodeService : PathNodeBase,
         ISetItemContent,
-        IClearItemContent
+        IClearItemContent,
+        ICopyItem,
+        IInvokeItem,
+        IMoveItem,
+        INewItem,
+        IRemoveItem,
+        IRenameItem
     {
         private readonly SHiPSDrive _drive;
         private readonly SHiPSDirectory _container;
@@ -63,25 +69,18 @@ namespace Microsoft.PowerShell.SHiPS
         /// </summary>
         public override object GetNodeChildrenParameters
         {
-            get
-            {
-                var item = this.ContainerNode;
-                if (item == null || item.IsLeaf)
-                {
-                    // do nothing if a leaf node
-                    return null;
-                }
-
-                // Geting dynamic parameters
-                var parameters = GetNodeChildrenDynamicParameters(item);
-                return parameters;
-            }
+            get { return GetDynamicParameters(Constants.GetChildItemDynamicParameters); }
         }
 
-        private  object GetNodeChildrenDynamicParameters(SHiPSDirectory node)
+        private  object GetDynamicParameters(string functionName)
         {
-            var script = Constants.ScriptBlockWithParam1.StringFormat(Constants.GetChildItemDynamicParameters);
-            var parameters = PSScriptRunner.InvokeScriptBlock(null, node, _drive, script, PSScriptRunner.ReportErrors);
+            var item = this.ContainerNode;
+            if (item == null)
+            {
+                return null;
+            }
+            var script = Constants.ScriptBlockWithParam1.StringFormat(functionName);
+            var parameters = PSScriptRunner.InvokeScriptBlock(null, item, _drive, script, PSScriptRunner.ReportErrors);
             return parameters?.FirstOrDefault();
         }
 
@@ -187,5 +186,104 @@ namespace Microsoft.PowerShell.SHiPS
         }
 
         #endregion
+
+        #region ICopyItem
+        public object CopyItemParameters {
+            get {
+                return GetDynamicParameters(Constants.CopyItemDynamicParameters);
+            }
+        }        
+        public IPathValue CopyItem(IProviderContext context, string path, string copyPath, IPathValue destinationContainer, bool recurse) {
+            var item = this.ContainerNode;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam3.StringFormat(Constants.CopyItem);
+            PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path, copyPath);
+            return null; // Copy-Item does not return anything
+        }
+        #endregion
+
+        #region IInvokeItem
+        public object InvokeItemParameters {
+            get {
+                return GetDynamicParameters(Constants.InvokeItemDynamicParameters);
+            }
+        }        
+        public IEnumerable<object> InvokeItem(IProviderContext context, string path) {
+            var item = this.ContainerNode;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam2.StringFormat(Constants.InvokeItem);
+            var items = PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path)?.ToList();
+            return items;
+        }
+        #endregion
+
+        #region IMoveItem
+        public object MoveItemParameters {
+            get {
+                return GetDynamicParameters(Constants.MoveItemDynamicParameters);
+            }
+        }        
+        public IPathValue MoveItem(IProviderContext context, string path, string movePath, IPathValue destinationContainer) {
+            var item = this.ContainerNode;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam3.StringFormat(Constants.MoveItem);
+            PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path, movePath);
+            return null; // Move-Item does not return anything
+        }
+        #endregion
+
+        #region INewItem
+        public IEnumerable<string> NewItemTypeNames
+        {
+            get { return (IEnumerable<string>)GetDynamicParameters(Constants.NewItemTypeNames); }
+        }
+        public object NewItemParameters
+        {
+            get { return GetDynamicParameters(Constants.NewItemDynamicParameters); }
+        }
+        public IPathValue NewItem(IProviderContext context, string path, string itemTypeName, object newItemValue)
+        {
+            var item = this.ContainerNode;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam3.StringFormat(Constants.NewItem);
+            var nodes = PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors,
+                path, itemTypeName
+            )?.ToList();
+            if (nodes == null || nodes.Count == 0)
+            {
+                return null;
+            }
+            return new PathValue(nodes[0], ((SHiPSBase)nodes[0]).Name, ! ((SHiPSBase)nodes[0]).IsLeaf);
+        }
+        #endregion
+
+        #region IRemoveItem
+        public object RemoveItemParameters {
+            get {
+                return GetDynamicParameters(Constants.RemoveItemDynamicParameters);
+            }
+        }        
+        public void RemoveItem(IProviderContext context, string path, bool recurse) {
+            var item = this.ContainerNode;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam2.StringFormat(Constants.RemoveItem);
+            PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path);
+        }
+        #endregion
+
+        #region IRenameItem
+        public object RenameItemParameters {
+            get {
+                return GetDynamicParameters(Constants.RenameItemDynamicParameters);
+            }
+        }        
+        public void RenameItem(IProviderContext context, string path, string newName) {
+            var item = this.ContainerNode.Parent;
+            item.SHiPSProviderContext.Set(context);
+            var script = Constants.ScriptBlockWithParam3.StringFormat(Constants.RenameItem);
+            PSScriptRunner.InvokeScriptBlock(context, item, _drive, script, PSScriptRunner.ReportErrors, path, newName);
+        }
+        #endregion
+
     }
 }

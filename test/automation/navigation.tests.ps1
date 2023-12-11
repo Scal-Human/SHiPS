@@ -1607,3 +1607,10 @@ Describe "Not Supported Commands work properly outside test" -Tags "Feature"{
 		$v -eq $null | Should Be $true
 	}
 }
+
+# I was unable to run this tests file, they fail on $script:homePath being null.
+# The suggested tools\setup.ps1 is installing things that are already install but it does it IN THE ROOT of the C drive.
+# 1) this is unacceptable and can lead to serious issues
+# 2) tests are not running anyway after this setup
+# So ... execute action commands tests separately and and them here .. for those who can run those tests.
+. (Join-Path $PSScriptRoot '..\ActionCommands\ActionCommands.Tests.ps1')

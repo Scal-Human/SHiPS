@@ -1,3 +1,5 @@
+using System;
+
 namespace Microsoft.PowerShell.SHiPS
 {
 
@@ -20,5 +22,52 @@ namespace Microsoft.PowerShell.SHiPS
         public SHiPSLeaf(string name) : base(name, isLeaf:true)
         {
         }
+
+        #region CopyItem        
+        public virtual object CopyItem(string path, string destination)
+        {
+            return null;
+        }
+
+        public virtual object CopyItemDynamicParameters()
+        {
+            return null;
+        }   
+        #endregion
+
+        #region MoveItem        
+        public virtual object MoveItem(string path, string destination)
+        {
+            return null;
+        }
+
+        public virtual object MoveItemDynamicParameters()
+        {
+            return null;
+        }   
+        #endregion
+
+        #region RemoveItem
+        public virtual void RemoveItem(string path, bool recurse)
+        {
+            this.Parent?.RemoveItem(path, recurse);
+        }
+        
+        public virtual object RemoveItemDynamicParameters()
+        {
+            return this.Parent?.RemoveItemDynamicParameters();
+        }   
+        #endregion
+
+        #region RenameItem
+        
+        // Rename is handled by the directory to validate name vs existing items.
+
+        public virtual object RenameItemDynamicParameters()
+        {
+            return this.Parent?.RenameItemDynamicParameters();
+        }   
+        #endregion
+
     }
 }
